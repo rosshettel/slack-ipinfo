@@ -24,40 +24,34 @@ class IPInfo {
             if (err) {
                 res.status(500).send(err);
             } else {
-                let message = {
-                    username: 'IPInfo',
-                    icon_url: 'http://vignette1.wikia.nocookie.net/cowboybebop/images/c/cd/6_Ein1.png/revision/latest?cb=20091209161501',
-                    channel: payload.channel_id || '@slackbot',
-                    attachments: [{
-                        title: "IP Info for " + info.ip,
-                        title_link: "http://ipinfo.io/" + info.ip,
-                        fields: [
-                            {
-                                title: 'City',
-                                value: info.city,
-                                short: true
-                            }, {
-                                title: 'Region',
-                                value: info.region,
-                                short: true
-                            }, {
-                                title: 'Postal',
-                                value: info.postal,
-                                short: true
-                            }, {
-                                title: 'Country',
-                                value: info.country,
-                                short: true
-                            }, {
-                                title: 'Hostname',
-                                value: info.hostname
-                            }, {
-                                title: 'Org',
-                                value: info.org
-                            }
-                        ]
-                    }]
-                };
+                let fields = [],
+                    message = {
+                        username: 'IPInfo',
+                        icon_url: 'http://vignette1.wikia.nocookie.net/cowboybebop/images/c/cd/6_Ein1.png/revision/latest?cb=20091209161501',
+                        channel: payload.channel_id || '@slackbot',
+                        attachments: [{
+                            title: "IP Info for " + info.ip,
+                            title_link: "http://ipinfo.io/" + info.ip,
+                            fields: fields
+                        }]
+                    },
+                    addField = function addField(title, value, short = true) {
+                        if (value) {
+                            fields.push({
+                                title: title,
+                                value: value,
+                                short: short
+                            });
+                        }
+                    };
+
+                addField('City', info.city);
+                addField('Region', info.region);
+                addField('Postal', info.postal);
+                addField('Country', info.country);
+                addField('Hostname', info.hostname, false);
+                addField('Organiziation', info.org, false);
+                
 
                 console.log('posting message', message);
 
