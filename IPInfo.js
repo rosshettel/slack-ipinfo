@@ -27,7 +27,7 @@ class IPInfo {
                 let message = {
                     username: 'IPInfo',
                     icon_url: '',
-                    channel: payload.channel_name || '@slackbot',
+                    channel: payload.channel_id || '@slackbot',
                     text: info.hostname,
                     attachments: [{
                         title: "IP Info for " + info.ip,
@@ -51,7 +51,7 @@ class IPInfo {
                                 short: true
                             }, {
                                 title: 'Hostname',
-                                value: info.hostname,
+                                value: info.hostname
                             }, {
                                 title: 'Org',
                                 value: info.org
