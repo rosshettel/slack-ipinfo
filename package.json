@@ -1,0 +1,36 @@
+{
+  "name": "slack-ipinfo",
+  "version": "1.0.0",
+  "description": "Query ipinfo.io from Slack with a slash command",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rosshettel/slack-ipinfo.git"
+  },
+  "engines": {
+    "node": "4.1.1",
+    "npm": "2.1.x"
+  },
+  "keywords": [
+    "slack",
+    "slash",
+    "ip",
+    "ipinfo",
+    "whois"
+  ],
+  "author": "Ross Hettel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rosshettel/slack-ipinfo/issues"
+  },
+  "homepage": "https://github.com/rosshettel/slack-ipinfo",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "ipinfo": "^1.0.0"
+  }
+}
