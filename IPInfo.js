@@ -26,9 +26,8 @@ class IPInfo {
             } else {
                 let message = {
                     username: 'IPInfo',
-                    icon_url: '',
+                    icon_url: 'http://vignette1.wikia.nocookie.net/cowboybebop/images/c/cd/6_Ein1.png/revision/latest?cb=20091209161501',
                     channel: payload.channel_id || '@slackbot',
-                    text: info.hostname,
                     attachments: [{
                         title: "IP Info for " + info.ip,
                         title_link: "http://ipinfo.io/" + info.ip,
@@ -57,7 +56,7 @@ class IPInfo {
                                 value: info.org
                             }
                         ]
-                    }]
+                    }];
                 };
 
                 console.log('posting message', message);
