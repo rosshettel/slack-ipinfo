@@ -35,7 +35,7 @@ class IPInfo {
                             fields: fields
                         }]
                     },
-                    addField = function addField(title, value, short = true) {
+                    addField = function addField(title, value, short) {
                         if (value) {
                             fields.push({
                                 title: title,
@@ -51,7 +51,7 @@ class IPInfo {
                 addField('Country', info.country);
                 addField('Hostname', info.hostname, false);
                 addField('Organiziation', info.org, false);
-                
+
 
                 console.log('posting message', message);
 
