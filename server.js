@@ -5,26 +5,27 @@ var express = require('express'),
     port = process.env.PORT || 3000,
     server = app.listen(port);
 
+const TOKEN = process.env.TOKEN;
+const WEBHOOK = process.env.WEBHOOK;
+
 app.use(bodyParser.urlencoded({extended: true}));
 
 function isValidToken(payload) {
-    let token = process.env.TOKEN;
-    return payload.token === token;
+    return payload.token === TOKEN;
 }
 
 
 app.post('/', function (req, res) {
     let payload = req.body,
-        ipinfo = require('ipinfo');
+        IPInfo = new (require('./IPInfo.js'));
 
     if (!isValidToken(payload)) {
         return res.status(403).send({error: "Slack slash command token does not match"});
     }
 
-    ipinfo(payload.text, function (err, info) {
-        console.log(err);
-        console.log(info);
-
-        res.send(info);
-    });
+    if (WEBHOOK) {
+        IPInfo.sendPrettyResponse(res, payload);
+    } else {
+        IPInfo.sendPlainTextResponse(res, payload);
+    }
 });
