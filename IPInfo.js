@@ -33,6 +33,8 @@ module.exports = class IPInfo {
                     }]
                 };
 
+                console.log('posting message', message);
+
                 superagent.post(WEBHOOK, message, function (err) {
                     if (err) {
                         console.log('Error posting to slack!', err.toString());
