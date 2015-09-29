@@ -55,12 +55,15 @@ class IPInfo {
                 addField('Organiziation', info.org);
 
                 if (info.loc) {
-                    message.attachments[0].image_url = "https://maps.googleapis.com/maps/api/staticmap?" + querystring.stringify({
+                    message.attachments.push({
+                        image_url: "https://maps.googleapis.com/maps/api/staticmap?" + querystring.stringify({
                             center: info.loc,
-                            size: '400x125',
+                            //size: '400x125',
+                            size: '640x200',
                             zoom: '9',
                             key: MAPS_KEY
-                        });
+                        })
+                    });
                 }
 
                 console.log('posting message', message);
