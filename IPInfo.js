@@ -1,5 +1,6 @@
 'use strict';
-module.exports = class IPInfo {
+module.exports =
+class IPInfo {
     constructor() {
         this.ipinfo = require('ipinfo');
     }
@@ -29,7 +30,33 @@ module.exports = class IPInfo {
                     channel: payload.channel_name || '@slackbot',
                     text: info.hostname,
                     attachments: [{
-
+                        title: "IP Info for " + info.ip,
+                        title_link: "http://ipinfo.io/" + info.ip,
+                        fields: [
+                            {
+                                title: 'City',
+                                value: info.city,
+                                short: true
+                            }, {
+                                title: 'Region',
+                                value: info.region,
+                                short: true
+                            }, {
+                                title: 'Postal',
+                                value: info.postal,
+                                short: true
+                            }, {
+                                title: 'Country',
+                                value: info.country,
+                                short: true
+                            }, {
+                                title: 'Hostname',
+                                value: info.hostname,
+                            }, {
+                                title: 'Org',
+                                value: title.org
+                            }
+                        ]
                     }]
                 };
 
