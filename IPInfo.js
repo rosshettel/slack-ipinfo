@@ -17,8 +17,10 @@ class IPInfo {
 
     sendPrettyResponse(res, payload) {
         let superagent = require('superagent'),
+            querystring = require('querystring'),
             self = this;
         const WEBHOOK = process.env.WEBHOOK;
+        const MAPS_KEY = process.env.MAPS_KEY;
 
         this.ipinfo(payload.text, function (err, info) {
             if (err) {
@@ -51,7 +53,16 @@ class IPInfo {
                 addField('Country', info.country);
                 addField('Hostname', info.hostname);
                 addField('Organiziation', info.org);
-                
+
+                if (info.loc) {
+                    message.image_url = "https://maps.googleapis.com/maps/api/staticmap?" + querystring.stringify({
+                            center: info.loc,
+                            size: '640x200',
+                            zoom: '9',
+                            key: MAPS_KEY
+                        });
+                }
+
                 console.log('posting message', message);
 
                 superagent.post(WEBHOOK, message, function (err) {
