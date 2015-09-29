@@ -35,24 +35,23 @@ class IPInfo {
                             fields: fields
                         }]
                     },
-                    addField = function addField(title, value, short) {
+                    addField = function addField(title, value) {
                         if (value) {
                             fields.push({
                                 title: title,
                                 value: value,
-                                short: short
+                                short: true
                             });
                         }
                     };
 
-                addField('City', info.city, true);
-                addField('Region', info.region, true);
-                addField('Postal', info.postal, true);
-                addField('Country', info.country, true);
-                addField('Hostname', info.hostname, false);
-                addField('Organiziation', info.org, false);
-
-
+                addField('City', info.city);
+                addField('Region', info.region);
+                addField('Postal', info.postal);
+                addField('Country', info.country);
+                addField('Hostname', info.hostname);
+                addField('Organiziation', info.org);
+                
                 console.log('posting message', message);
 
                 superagent.post(WEBHOOK, message, function (err) {
