@@ -54,7 +54,7 @@ class IPInfo {
                                 value: info.hostname,
                             }, {
                                 title: 'Org',
-                                value: title.org
+                                value: info.org
                             }
                         ]
                     }]
