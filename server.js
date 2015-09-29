@@ -23,8 +23,6 @@ app.post('/', function (req, res) {
         return res.status(403).send({error: "Slack slash command token does not match"});
     }
 
-    console.log('payload', payload);
-
     if (WEBHOOK) {
         IPInfo.sendPrettyResponse(res, payload);
     } else {

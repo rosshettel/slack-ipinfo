@@ -57,7 +57,7 @@ class IPInfo {
                 if (info.loc) {
                     message.image_url = "https://maps.googleapis.com/maps/api/staticmap?" + querystring.stringify({
                             center: info.loc,
-                            size: '640x200',
+                            size: '400x125',
                             zoom: '9',
                             key: MAPS_KEY
                         });
