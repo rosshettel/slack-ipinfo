@@ -45,10 +45,10 @@ class IPInfo {
                         }
                     };
 
-                addField('City', info.city);
-                addField('Region', info.region);
-                addField('Postal', info.postal);
-                addField('Country', info.country);
+                addField('City', info.city, true);
+                addField('Region', info.region, true);
+                addField('Postal', info.postal, true);
+                addField('Country', info.country, true);
                 addField('Hostname', info.hostname, false);
                 addField('Organiziation', info.org, false);
 
