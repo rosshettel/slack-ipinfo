@@ -56,7 +56,7 @@ class IPInfo {
                                 value: info.org
                             }
                         ]
-                    }];
+                    }]
                 };
 
                 console.log('posting message', message);
