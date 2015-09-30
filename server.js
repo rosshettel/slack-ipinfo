@@ -9,6 +9,7 @@ const TOKEN = process.env.TOKEN;
 const WEBHOOK = process.env.WEBHOOK;
 
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static(__dirname + '/static'));
 
 function isValidToken(payload) {
     return payload.token === TOKEN;

@@ -29,7 +29,7 @@ class IPInfo {
                 let fields = [],
                     message = {
                         username: 'IPInfo',
-                        icon_url: 'http://vignette1.wikia.nocookie.net/cowboybebop/images/c/cd/6_Ein1.png/revision/latest?cb=20091209161501',
+                        icon_url: 'http://slack-ipinfo.herokuapp.com/icon.png',
                         channel: payload.channel_id || '@slackbot',
                         attachments: [{
                             title: "IP Info for " + info.ip,
@@ -57,8 +57,7 @@ class IPInfo {
                 if (info.loc) {
                     message.attachments[0].image_url = "https://maps.googleapis.com/maps/api/staticmap?" + querystring.stringify({
                             center: info.loc,
-                            //size: '400x125',
-                            size: '640x200',
+                            size: '400x125',
                             zoom: '9',
                             key: MAPS_KEY
                         });
