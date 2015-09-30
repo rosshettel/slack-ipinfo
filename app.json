@@ -1,0 +1,25 @@
+{
+    "name": "Slack IPinfo",
+    "description": "Query ipinfo.io from Slack with a slash command",
+    "repository": "https://github.com/rosshettel/slack-ipinfo.git",
+    "logo": "http://slack-ipinfo.herokuapp.com/icon.png",
+    "keywords": [
+        "slack",
+        "ipinfo",
+        "slash",
+        "ip",
+        "whois"
+    ],
+    "website": "https://github.com/rosshettel/slack-ipinfo.git",
+    "env": {
+        "TOKEN": {
+            "description": "The token for your Slack slash command"
+        },
+        "WEBHOOK": {
+            "description": "The webhook for Slack if you want rich responses to /ip queries"
+        },
+        "MAPS_KEY": {
+            "description": "The Google Maps API key if you want geolocation maps"
+        }
+    }
+}
