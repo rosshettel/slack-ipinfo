@@ -3,11 +3,16 @@
 var IPInfo = function () {
     let ipinfo = require('ipinfo'),
         querystring = require('querystring'),
+        validator = require('validator'),
         logger = require('./logger'),
         MAPS_KEY = process.env.MAPS_KEY;
 
     this.sendResponse = function (res, payload) {
-        //todo - validate valid IP address
+        if(!validator.isIP(payload.text)) {
+            res.send({text: "Please include a valid v4 or v6 IP address."});
+            return;
+        }
+        
         ipinfo(payload.text, function (err, info) {
             if (err) {
                 res.status(500).send({error: err});

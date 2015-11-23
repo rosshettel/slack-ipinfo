@@ -36,6 +36,7 @@
     "slack-api": "^0.1.11",
     "slack-winston": "0.0.3",
     "superagent": "^1.4.0",
+    "validator": "^4.3.0",
     "winston": "^2.1.1"
   }
 }
