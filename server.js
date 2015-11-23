@@ -38,6 +38,11 @@ app.get('/oauth', function (req, res) {
     });
 });
 
+app.post('/slash', function (req, res) {
+    logger.debug('slash received', req.body);
+    res.end();
+});
+
 app.post('/', function (req, res) {
     let payload = req.body,
         IPInfo = new (require('./IPInfo.js'));
