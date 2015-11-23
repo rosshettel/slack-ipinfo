@@ -4,18 +4,11 @@ var express = require('express'),
     slack = require('slack-api'),
     app = express(),
     port = process.env.PORT || 3000,
-    server = app.listen(port),
-    logger = require('./logger');
-
-const TOKEN = process.env.TOKEN;
-const WEBHOOK = process.env.WEBHOOK;
+    logger = require('./logger'),
+    IPInfo = require('./IPInfo');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + '/static'));
-
-function isValidToken(payload) {
-    return payload.token === TOKEN;
-}
 
 app.get('/oauth', function (req, res) {
     logger.debug('oauth', {
@@ -39,21 +32,9 @@ app.get('/oauth', function (req, res) {
 });
 
 app.post('/slash', function (req, res) {
-    logger.debug('slash received', req.body);
-    res.end();
+    let payload = req.body;
+
+    IPInfo.sendResponse(res, payload);
 });
 
-app.post('/', function (req, res) {
-    let payload = req.body,
-        IPInfo = new (require('./IPInfo.js'));
-
-    if (!isValidToken(payload)) {
-        return res.status(403).send({error: "Slack slash command token does not match"});
-    }
-
-    if (WEBHOOK) {
-        IPInfo.sendPrettyResponse(res, payload);
-    } else {
-        IPInfo.sendPlainTextResponse(res, payload);
-    }
-});
+app.listen(port);
