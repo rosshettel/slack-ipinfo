@@ -1,7 +1,7 @@
 var winston = require('winston'),
     slackWinston = require('slack-winston'),
     moment = require('moment'),
-    slackWebhook = process.env.SLACK_WEBHOOK || 'n/a',
+    slackWebhook = process.env.LOGGING_WEBHOOK || 'n/a',
     logger = new (winston.Logger)({
         transports: [
             new winston.transports.Console({
