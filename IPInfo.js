@@ -8,13 +8,16 @@ var IPInfo = function () {
         MAPS_KEY = process.env.MAPS_KEY;
 
     this.sendResponse = function (res, payload) {
+        logger.debug('request for ' + payload.text);
+
         if(!validator.isIP(payload.text)) {
             res.send({text: "Please include a valid v4 or v6 IP address."});
             return;
         }
-        
+
         ipinfo(payload.text, function (err, info) {
             if (err) {
+                logger.error('ipinfo error', err);
                 res.status(500).send({error: err});
                 return;
             }
@@ -54,8 +57,6 @@ var IPInfo = function () {
                         key: MAPS_KEY
                     });
             }
-
-            logger.debug('responding with message', message);
 
             res.send(message);
         });
