@@ -15,6 +15,10 @@ function isValidToken(payload) {
     return payload.token === TOKEN;
 }
 
+app.get('/oauth', function (req, res) {
+    //get query param `code`
+    //
+})
 
 app.post('/', function (req, res) {
     let payload = req.body,
