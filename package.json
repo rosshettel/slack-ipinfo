@@ -32,7 +32,10 @@
     "body-parser": "^1.14.1",
     "express": "^4.13.3",
     "ipinfo": "^1.0.0",
+    "moment": "^2.10.6",
     "slack-api": "^0.1.11",
-    "superagent": "^1.4.0"
+    "slack-winston": "0.0.3",
+    "superagent": "^1.4.0",
+    "winston": "^2.1.1"
   }
 }
