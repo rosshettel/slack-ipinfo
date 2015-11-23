@@ -10,7 +10,7 @@ var IPInfo = function () {
         //todo - validate valid IP address
         ipinfo(payload.text, function (err, info) {
             if (err) {
-                res.status(500).send(err);
+                res.status(500).send({error: err});
                 return;
             }
 
