@@ -15,8 +15,7 @@ var IPInfo = function () {
 
             let fields = [],
                 message = {
-                    response_type: 'in_channel',
-                    text: 'IP Info',
+                    response_type: 'ephemeral',
                     attachments: [{
                         title: 'IP Info for ' + info.ip,
                         title_link: 'http://ipinfo.io/' + info.ip,
