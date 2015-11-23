@@ -2,6 +2,7 @@
 
 var IPInfo = function () {
     let ipinfo = require('ipinfo'),
+        querystring = require('querystring'),
         logger = require('./logger'),
         MAPS_KEY = process.env.MAPS_KEY;
 
