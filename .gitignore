@@ -28,4 +28,4 @@ node_modules
 
 server.crt
 server.key
-ssl.tar
+cert-key.tar
