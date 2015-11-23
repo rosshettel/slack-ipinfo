@@ -18,7 +18,10 @@ function isValidToken(payload) {
 }
 
 app.get('/oauth', function (req, res) {
-    logger.debug('oauth');
+    logger.debug('oauth', {
+        client_id: process.env.CLIENT_ID,
+        client_scret: process.env.CLIENT_SECRET,
+        code: req.query.code});
     if (!req.query.code) {
         res.status(400).send('Code query param not found!');
     }
