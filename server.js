@@ -4,7 +4,8 @@ var express = require('express'),
     slack = require('slack-api'),
     app = express(),
     port = process.env.PORT || 3000,
-    server = app.listen(port),;
+    server = app.listen(port),
+    logger = require('./logger');
 
 const TOKEN = process.env.TOKEN;
 const WEBHOOK = process.env.WEBHOOK;
@@ -17,6 +18,7 @@ function isValidToken(payload) {
 }
 
 app.get('/oauth', function (req, res) {
+    logger.debug('oauth');
     if (!req.query.code) {
         res.status(400).send('Code query param not found!');
     }
@@ -27,9 +29,9 @@ app.get('/oauth', function (req, res) {
         code: req.query.code
     }, function (err, data) {
         if (err) {
-            console.log('err');
+            logger.error('error', err);
         }
-        console.log('data', data);
+        logger.debug('data', data);
     });
 });
 
