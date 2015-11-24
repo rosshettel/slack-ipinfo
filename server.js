@@ -32,8 +32,6 @@ app.get('/oauth', function (req, res) {
 app.post('/slash', function (req, res) {
     let payload = req.body;
 
-    logger.debug('payload', payload);
-
     if (payload.token !== process.env.TOKEN) {
         res.status(403).send({error: "Tokens do not match!"});
     }

@@ -8,7 +8,7 @@ var IPInfo = function () {
         MAPS_KEY = process.env.MAPS_KEY;
 
     this.sendResponse = function (res, payload) {
-        logger.debug('request for ' + payload.text);
+        logger.debug('request for %s from %s@%s:%s', payload.text, payload.user_name, payload.channel_name, payload.team_domain);
 
         if(!validator.isIP(payload.text)) {
             res.send({text: "Please include a valid v4 or v6 IP address."});
