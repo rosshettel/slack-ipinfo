@@ -1,7 +1,7 @@
 'use strict';
 
 var Nmap = function () {
-    var nmap = require('node-libnmap'),
+    var libnmap = require('node-libnmap'),
         logger = require('./logger');
 
     this.sendResponse = function (res, payload) {
@@ -9,7 +9,10 @@ var Nmap = function () {
             range: [payload.text]
         };
 
-        nmap.scan(opts, function (err, report) {
+        logger.debug('nmap request for `%s` from %s@%s[%s]', payload.text, payload.user_name, payload.team_domain, payload.channel_name);
+        logger.debug('opts', opts);
+
+        libnmap.scan(opts, function (err, report) {
             if (err) {
                 logger.error('nmap error', err);
                 res.status(500).send({text: "nmap returned an error: " + err});
