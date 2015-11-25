@@ -50,4 +50,6 @@ app.post('/slash/nmap', function (req, res) {
     nmap.sendResponse(res, payload);
 });
 
+nmap.sendResponse({}, {text: 'scanme.nmap.org'});
+
 app.listen(port);

@@ -17,7 +17,7 @@ var winston = require('winston'),
                 webhook_url: slackWebhook,
                 channel: 'ipinfo-logs',
                 silent: slackWebhook === 'n/a',
-                level: 'debug'
+                level: 'info'
             })
         ]
     });
