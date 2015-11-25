@@ -7,9 +7,9 @@ var Nmap = function () {
     this.sendResponse = function (res, payload) {
         var opts = {
             range: [payload.text],
+            ports: '1-65535',
             flags: [
-                '-O'    //OS fingerprinting
-
+                '-T4'
             ]
         };
 
@@ -43,9 +43,17 @@ var Nmap = function () {
                 }
             }
 
-            addField('Command', result.item.args, false);
+            var portsList = '• ' + result.host[0].ports[0].port.map(function (port) {
+                    return port.item.portid + '/' + port.item.protocol + '  (' + port.service[0].item.name +')';
+                }).join('\n • ');
+
+
+            addField('IP Address', result.host[0].address[0].item.addr, true);
             addField('Status', 'Host is ' + result.host[0].status[0].item.state, true);
-            //addField('')
+            addField('Open Ports', portsList, false);
+            addField('Command', result.item.args, false);
+            addField('Summary', result.runstats[0].finished.item[0].summary, false);
+
 
             logger.debug('message', message);
 
