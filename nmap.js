@@ -42,7 +42,7 @@ var Nmap = function () {
             addField('Status', 'Host is ' + result.host[0].status);
             //addField('')
 
-            res.send(report);
+            res.send(message);
         })
     };
 };
