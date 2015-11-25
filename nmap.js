@@ -1,7 +1,7 @@
 'use strict';
 
 var Nmap = function () {
-    var libnmap = require('node-libnmap'),
+    var libnmap = require('libnmap'),
         logger = require('./logger');
 
     this.sendResponse = function (res, payload) {
