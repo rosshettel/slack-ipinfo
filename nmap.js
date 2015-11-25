@@ -2,6 +2,7 @@
 
 var Nmap = function () {
     var libnmap = require('libnmap'),
+        superagent = require('superagent'),
         logger = require('./logger');
 
     this.sendResponse = function (res, payload) {
@@ -14,6 +15,8 @@ var Nmap = function () {
         };
 
         logger.info('nmap request for `%s` from %s@%s[%s]', payload.text, payload.user_name, payload.team_domain, payload.channel_name);
+
+        //res.send('Scanning ' + payload.text + 'now, your results will be posted to this channel soon.');
 
         libnmap.scan(opts, function (err, report) {
             if (err) {
@@ -52,8 +55,7 @@ var Nmap = function () {
             addField('Status', 'Host is ' + result.host[0].status[0].item.state, true);
             addField('Open Ports', portsList, false);
             addField('Command', result.item.args, false);
-            addField('Summary', result.runstats[0].finished.item[0].summary, false);
-
+            addField('Summary', result.runstats[0].finished[0].item.summary, false);
 
             logger.debug('message', message);
 
