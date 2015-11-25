@@ -27,7 +27,8 @@ var Nmap = function () {
                 },
                 result = report[payload.text];
 
-            function addField(title, value, short=true) {
+            function addField(title, value, short) {
+                var short = short || true;
                 if (value) {
                     fields.push({
                         title: title,
