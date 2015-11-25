@@ -5,7 +5,8 @@ var express = require('express'),
     app = express(),
     port = process.env.PORT || 3000,
     logger = require('./logger'),
-    IPInfo = require('./IPInfo');
+    IPInfo = require('./IPInfo'),
+    nmap = require('./nmap');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + '/static'));
@@ -29,7 +30,7 @@ app.get('/oauth', function (req, res) {
     });
 });
 
-app.post('/slash', function (req, res) {
+app.post('/slash/ip', function (req, res) {
     let payload = req.body;
 
     if (payload.token !== process.env.TOKEN) {
@@ -37,6 +38,16 @@ app.post('/slash', function (req, res) {
     }
 
     IPInfo.sendResponse(res, payload);
+});
+
+app.post('/slash/nmap', function (req, res) {
+    let payload = req.body;
+
+    if (payload.token !== process.env.TOKEN) {
+        res.status(403).send({error: 'Tokens do not match!'});
+    }
+
+    nmap.sendResponse(res, payload);
 });
 
 app.listen(port);
