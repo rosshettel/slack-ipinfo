@@ -13,22 +13,29 @@ var Nmap = function () {
                 '-T4'
             ]
         };
+        //todo - validate if IP or host??
 
         logger.info('nmap request for `%s` from %s@%s[%s]', payload.text, payload.user_name, payload.team_domain, payload.channel_name);
 
-        //res.send('Scanning ' + payload.text + 'now, your results will be posted to this channel soon.');
+        res.send({
+            response_type: 'in_channel',
+            text: 'Scanning ' + payload.text + 'now, your results will be posted to this channel soon.'});
 
         libnmap.scan(opts, function (err, report) {
             if (err) {
                 logger.error('nmap error', err);
-                res.status(500).send({text: "nmap returned an error: " + err});
+                superagent.post(payload.response_url).send({
+                    response_type: 'in_channel',
+                    text: 'nmap return an error! ' + err
+                });
+                return;
             }
 
             logger.debug('report', report);
 
             let fields = [],
                 message = {
-                    response_type: 'ephemeral',
+                    response_type: 'in_channel',
                     attachments: [{
                         title: 'nmap scan results for ' + payload.text,
                         fields: fields
@@ -59,7 +66,7 @@ var Nmap = function () {
 
             logger.debug('message', message);
 
-            res.send(message);
+            superagent.post(payload.response_url).send(message);
         });
     };
 };
