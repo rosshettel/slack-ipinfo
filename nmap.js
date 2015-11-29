@@ -19,7 +19,7 @@ var Nmap = function () {
 
         res.send({
             response_type: 'in_channel',
-            text: 'Scanning ' + payload.text + 'now, your results will be posted to this channel soon.'});
+            text: 'Scanning ' + payload.text + ' now, your results will be posted to this channel soon.'});
 
         libnmap.scan(opts, function (err, report) {
             if (err) {
@@ -63,6 +63,7 @@ var Nmap = function () {
             addField('Summary', result.runstats[0].finished[0].item.summary, false);
 
             logger.debug('message', message);
+            logger.debug('posting to', payload.response_url);
 
             superagent.post(payload.response_url).send(message);
         });
