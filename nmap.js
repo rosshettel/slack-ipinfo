@@ -3,7 +3,15 @@
 var Nmap = function () {
     var libnmap = require('libnmap'),
         superagent = require('superagent'),
-        logger = require('./logger');
+        logger = require('./logger'),
+        self = this;
+
+    function validInput(input) {
+        //if !IP && !domain return false
+        //if !IP && domain return true
+        //if IP && domain return WTF
+        return true;
+    }
 
     this.sendResponse = function (res, payload) {
         var opts = {
@@ -13,9 +21,15 @@ var Nmap = function () {
                 '-T4'
             ]
         };
-        //todo - validate if IP or host??
 
         logger.info('nmap request for `%s` from %s@%s[%s]', payload.text, payload.user_name, payload.team_domain, payload.channel_name);
+
+        if (!validInput(payload.text)) {
+            res.send({
+                response_type: 'ephemeral',
+                text: "Please include a valid IP or domain."
+            });
+        }
 
         res.send({
             response_type: 'in_channel',
@@ -26,7 +40,7 @@ var Nmap = function () {
                 logger.error('nmap error', err);
                 superagent.post(payload.response_url).send({
                     response_type: 'in_channel',
-                    text: 'nmap return an error! ' + err
+                    text: 'nmap encountered an error! ' + err
                 }).end(function (err, res) {
                     if (err) {
                         logger.error('Post to response_url error', err);
@@ -63,7 +77,7 @@ var Nmap = function () {
             addField('IP Address', result.host[0].address[0].item.addr, true);
             addField('Status', 'Host is ' + result.host[0].status[0].item.state, true);
             addField('Open Ports', portsList, false);
-            addField('Command', result.item.args, false);
+            addField('Command Used', result.item.args, false);
             addField('Summary', result.runstats[0].finished[0].item.summary, false);
 
             logger.debug('message', message);
@@ -73,7 +87,6 @@ var Nmap = function () {
                 if (err) {
                     logger.error('Post to response_url error', err);
                 }
-                logger.debug('Slack response', res.body);
             });
         });
     };

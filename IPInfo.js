@@ -11,20 +11,26 @@ var IPInfo = function () {
         logger.info('ip request for `%s` from %s@%s[%s]', payload.text, payload.user_name, payload.team_domain, payload.channel_name);
 
         if(!validator.isIP(payload.text)) {
-            res.send({text: "Please include a valid v4 or v6 IP address."});
+            res.send({
+                response_type: 'ephemeral',
+                text: "Please include a valid v4 or v6 IP address."
+            });
             return;
         }
 
         ipinfo(payload.text, function (err, info) {
             if (err) {
                 logger.error('ipinfo error', err);
-                res.status(500).send({error: err});
+                res.send({
+                    response_type: 'ephemeral',
+                    text: 'ipinfo encountered an error! ' + err
+                });
                 return;
             }
 
             let fields = [],
                 message = {
-                    response_type: 'ephemeral',
+                    response_type: 'in_channel',
                     attachments: [{
                         title: 'IP Info for ' + info.ip,
                         title_link: 'http://ipinfo.io/' + info.ip,
