@@ -31,6 +31,7 @@ var Nmap = function () {
                     response_type: 'ephemeral',
                     text: "Please include a valid IP or domain."
                 });
+                return;
             }
 
             res.send({
