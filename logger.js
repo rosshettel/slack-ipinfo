@@ -7,10 +7,16 @@ var winston = require('winston'),
             new winston.transports.Console({
                 level: 'debug',
                 colorize: true,
-                prettyPrint: true,
+                prettyPrint: false,
                 timestamp: function () {
                     return moment().format("MM/DD HH:mm:ss");
                 }
+            }),
+            new winston.transports.File({
+                level: 'debug',
+                colorize: true,
+                prettyPrint: true,
+                filename: 'server.log'
             }),
             new slackWinston.Slack({
                 domain: 'rosshettel',

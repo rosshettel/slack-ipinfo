@@ -31,8 +31,6 @@ var Nmap = function () {
                 return;
             }
 
-            logger.debug('report', report);
-
             let fields = [],
                 message = {
                     response_type: 'in_channel',
