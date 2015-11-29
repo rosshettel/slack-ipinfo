@@ -26,9 +26,4 @@ build/Release
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
 node_modules
 
-ssl.crt
-server.crt
-server.key
-server.key.bak
-sub.class1.server.ca.pem
-cert-key.tar
+certs/*
