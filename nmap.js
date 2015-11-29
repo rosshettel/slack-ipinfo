@@ -27,6 +27,10 @@ var Nmap = function () {
                 superagent.post(payload.response_url).send({
                     response_type: 'in_channel',
                     text: 'nmap return an error! ' + err
+                }).end(function (err, res) {
+                    if (err) {
+                        logger.error('Post to response_url error', err);
+                    }
                 });
                 return;
             }
@@ -65,7 +69,12 @@ var Nmap = function () {
             logger.debug('message', message);
             logger.debug('posting to', payload.response_url);
 
-            superagent.post(payload.response_url).send(message);
+            superagent.post(payload.response_url).send(message).end(function (err, res) {
+                if (err) {
+                    logger.error('Post to response_url error', err);
+                }
+                logger.debug('Slack response', res.body);
+            });
         });
     };
 };
