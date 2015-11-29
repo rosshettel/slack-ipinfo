@@ -10,16 +10,12 @@ var Nmap = function () {
 
     function validInput(input) {
         if (validator.isIP(input)) {
-            logger.info('isIP true');
             return true;
         } else {
-            logger.info('isIP false');
-            dns.lookup(input, function (err, addresses, family) {
+            return dns.lookup(input, function (err, addresses, family) {
                 if (err) {
-                    logger.info('dns lookup err', err);
                     return false;
                 } else {
-                    logger.info('dns lookup', addresses);
                     return true;
                 }
             });
