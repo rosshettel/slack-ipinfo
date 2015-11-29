@@ -3,14 +3,23 @@
 var Nmap = function () {
     var libnmap = require('libnmap'),
         superagent = require('superagent'),
+        dns = require('dns'),
+        validator = require('validator'),
         logger = require('./logger'),
         self = this;
 
     function validInput(input) {
-        //if !IP && !domain return false
-        //if !IP && domain return true
-        //if IP && domain return WTF
-        return true;
+        if (validator.isIP(input)) {
+            return true;
+        } else {
+            dns.lookup(input, function (err, addresses, family) {
+                if (err) {
+                    return false;
+                } else {
+                    return true;
+                }
+            });
+        }
     }
 
     this.sendResponse = function (res, payload) {
