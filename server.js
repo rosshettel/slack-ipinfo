@@ -22,32 +22,37 @@ app.get('/oauth', function (req, res) {
         code: req.query.code
     }, function (err, data) {
         if (err) {
-            logger.error('error', err);
+            logger.error('Error getting oauth code', err);
             res.send({error: err});
         }
-        logger.debug('data', data);
+        logger.info('New signup!', data);
+        //todo - redirect to post sign up page
         res.send({message: "Thanks, authenticated!"});
     });
 });
 
+function tokenIsValid(res, payload) {
+    if (payload.token !== process.env.TOKEN) {
+        res.status(403).send({text: "Error! Tokens do not match!"});
+        return false;
+    }
+    return true;
+}
+
 app.post('/slash/ip', function (req, res) {
     let payload = req.body;
 
-    if (payload.token !== process.env.TOKEN) {
-        res.status(403).send({error: "Tokens do not match!"});
+    if (tokenIsValid(res, payload)) {
+        IPInfo.sendResponse(res, payload);
     }
-
-    IPInfo.sendResponse(res, payload);
 });
 
 app.post('/slash/nmap', function (req, res) {
     let payload = req.body;
 
-    if (payload.token !== process.env.TOKEN) {
-        res.status(403).send({error: 'Tokens do not match!'});
+    if (tokenIsValid(res, payload)) {
+        nmap.sendResponse(res, payload);
     }
-
-    nmap.sendResponse(res, payload);
 });
 
 process.on('uncaughtException', function (err) {

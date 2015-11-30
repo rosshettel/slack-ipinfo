@@ -5,8 +5,7 @@ var Nmap = function () {
         superagent = require('superagent'),
         dns = require('dns'),
         validator = require('validator'),
-        logger = require('./logger'),
-        self = this;
+        logger = require('./logger');
 
     function validateInput(input, callback) {
         if (validator.isIP(input)) {
