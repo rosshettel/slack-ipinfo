@@ -25,7 +25,7 @@ app.get('/oauth', function (req, res) {
             logger.error('Error getting oauth code', err);
             res.send({error: err});
         }
-        logger.info('New signup!', data);
+        logger.info('New signup from %s!', data.team_name);
         //todo - redirect to post sign up page
         res.send({message: "Thanks, authenticated!"});
     });
