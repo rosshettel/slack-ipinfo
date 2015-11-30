@@ -50,4 +50,8 @@ app.post('/slash/nmap', function (req, res) {
     nmap.sendResponse(res, payload);
 });
 
+process.on('uncaughtException', function (err) {
+    logger.error('Uncaught Exception!', err);
+});
+
 app.listen(port);
